@@ -1,7 +1,6 @@
 class Todo < ApplicationRecord
 
     validates_presence_of :name
-    validates_presence_of :user_id
     validate :duedate_is_in_the_future
 
 

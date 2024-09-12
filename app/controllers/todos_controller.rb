@@ -68,6 +68,7 @@ class TodosController < ApplicationController
 
   # PATCH/PUT /todos/1 or /todos/1.json
   def update
+    @todos = Todo.all
     respond_to do |format|
       if @todo.update(todo_params)
         format.turbo_stream
