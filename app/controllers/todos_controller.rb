@@ -11,7 +11,12 @@ class TodosController < ApplicationController
   # GET /todos or /todos.json
   def index
     Rails.logger.info 'Index view accessed'
-    @todos = Todo.where(status: params[:status].presence || 'incomplete')
+    # @todos = Todo.where(status: params[:status].presence || 'incomplete')
+
+
+    @todos = params[:id].presence ? @user.todos.where(status: params[:status].presence || 'incomplete') : Todo.where(status: params[:status].presence || 'incomplete')
+    # @todos = User.todos_for_user(2).where(status: params[:status].presence || 'incomplete')
+    # @todos = Todo.where(status: params[:status].presence || 'incomplete')
   end
 
   # GET /todos/1 or /todos/1.json
@@ -25,6 +30,8 @@ class TodosController < ApplicationController
 
   # GET /todos/1/edit
   def edit
+    
+
   end
 
   # DELETE /todos/reset
@@ -88,6 +95,6 @@ class TodosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def todo_params
-      params.require(:todo).permit(:name, :duedate, :status)
+      params.require(:todo).permit(:name, :duedate, :status , :user_id)
     end
 end
