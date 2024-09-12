@@ -14,7 +14,12 @@ class TodosController < ApplicationController
     # @todos = Todo.where(status: params[:status].presence || 'incomplete')
 
 
-    @todos = params[:id].presence ? @user.todos.where(status: params[:status].presence || 'incomplete') : Todo.where(status: params[:status].presence || 'incomplete')
+    if params[:id]
+      @user = User.find(params[:id])
+      @todos = @user.todos.where(status: params[:status].presence || 'incomplete')
+    else
+      @todos = Todo.where(status: params[:status].presence || 'incomplete')
+    end
     # @todos = User.todos_for_user(2).where(status: params[:status].presence || 'incomplete')
     # @todos = Todo.where(status: params[:status].presence || 'incomplete')
   end
@@ -30,7 +35,7 @@ class TodosController < ApplicationController
 
   # GET /todos/1/edit
   def edit
-    
+
 
   end
 
