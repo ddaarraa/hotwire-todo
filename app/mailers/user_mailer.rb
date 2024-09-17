@@ -6,4 +6,10 @@ class UserMailer < ApplicationMailer
     @user = user
     mail(to: @user.email, subject: 'Reminder: Your todo is due soon!')
   end
+
+  def job_expire_notifier(user, todo)
+    @todo = todo
+    @user = user
+    mail(to: @user.email, subject: 'Task is expired!')
+  end
 end

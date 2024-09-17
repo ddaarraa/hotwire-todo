@@ -6,13 +6,14 @@ class Todo < ApplicationRecord
 
     enum status: {
         incomplete: 0,
-        complete: 1
+        complete: 1,
+        expired: 2
     }
 
     private
 
     def duedate_is_in_the_future
-        if duedate.present? && duedate < Date.today
+        if duedate.present? && (duedate.to_i/60) < (Time.current.to_i/60)
         errors.add(:duedate, "must be in the future")
         end
     end

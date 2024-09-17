@@ -8,7 +8,7 @@
         <li>
           <%= link_to "Incomplete",
             todos_path(status: "incomplete"),
-            class: "inline-block pb-2 px-4 text-sm font-medium text-center text-gray-500 border-b-2 hover:text-gray-600 border-b-2 #{ params[:status] != "complete" ? 'border-blue-600' : 'border-transparent hover:border-gray-300'}"
+            class: "inline-block pb-2 px-4 text-sm font-medium text-center text-gray-500 border-b-2 hover:text-gray-600 border-b-2 #{ (params[:status] != "complete" and params[:status] != "expired") ? 'border-blue-600' : 'border-transparent hover:border-gray-300'}"
           %>
         </li>
         <li>
@@ -17,10 +17,16 @@
             class: "inline-block pb-2 px-4 text-sm font-medium text-center text-gray-500 border-b-2 hover:text-gray-600 border-b-2 #{ params[:status] == "complete" ? 'border-blue-600' : 'border-transparent hover:border-gray-300'}"
           %>
         </li>
+        <li>
+          <%= link_to "Expired",
+            todos_path(status: "expired"),
+            class: "inline-block pb-2 px-4 text-sm font-medium text-center text-gray-500 border-b-2 hover:text-gray-600 border-b-2 #{ params[:status] == "expired" ? 'border-blue-600' : 'border-transparent hover:border-gray-300'}"
+          %>
+        </li>
       </ul>          
     </div>
     
-    <% unless params[:status] == "complete" %>
+    <% unless  (params[:status] == "complete" || params[:status] == "expired" ) %>
       <div class="py-2 px-4">
         <%= render "form", todo: Todo.new %>
       </div>
